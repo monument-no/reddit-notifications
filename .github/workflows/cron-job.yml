@@ -1,0 +1,33 @@
+name: 'Daily Reddit Bot Run'
+
+on:
+  # Runs every day at 08:00 UTC
+  schedule:
+    - cron: '0 8 * * *'
+
+  # Allows you to manually run the workflow from the GitHub Actions tab if desired
+  workflow_dispatch:
+
+jobs:
+  run_reddit_bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Run Reddit Bot
+        env:
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: python reddit_bot.py
