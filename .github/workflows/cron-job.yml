@@ -30,4 +30,5 @@ jobs:
           REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          MONGODB_NAME: ${{ secrets.MONGODB_NAME }}
         run: python reddit_bot.py

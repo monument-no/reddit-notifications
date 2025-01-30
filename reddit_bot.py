@@ -14,6 +14,7 @@ REDDIT_CLIENT_ID = os.environ.get("REDDIT_CLIENT_ID")
 REDDIT_CLIENT_SECRET = os.environ.get("REDDIT_CLIENT_SECRET")
 REDDIT_USER_AGENT = os.environ.get("REDDIT_USER_AGENT")
 MONGODB_URI = os.environ.get("MONGODB_URI")
+MONGODB_NAME = os.environ.get("MONGODB_NAME")
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
 
 
@@ -36,7 +37,62 @@ reddit.read_only = True
 # -----------------------------------
 
 mongo_client = pymongo.MongoClient(MONGODB_URI)
-db = mongo_client["mnmt_reddit_db"]        # Database name
+db = mongo_client[MONGODB_NAME]            # Database name
+collection = db["processed_submissions"]   # Collection name
+
+# -----------------------------------
+# 4. Define your target subreddits
+# -----------------------------------
+target_subreddits = ["techno", "festivals", "musicfestivals"]
+
+# -----------------------------------
+# 5. Define keywords to look for
+# -----------------------------------
+keywords = ["mnmt", "monument"]
+
+# -----------------------------------
+# 6. Main logic to fetch new submissions and check keywords
+# -----------------------------------
+import os
+import praw
+import pymongo
+import time
+from dotenv import load_dotenv
+import requests  # <-- New import
+
+load_dotenv()  # Load variables from .env into os.environ
+
+# -----------------------------------
+# 1. Configure your Reddit credentials
+# -----------------------------------
+REDDIT_CLIENT_ID = os.environ.get("REDDIT_CLIENT_ID")
+REDDIT_CLIENT_SECRET = os.environ.get("REDDIT_CLIENT_SECRET")
+REDDIT_USER_AGENT = os.environ.get("REDDIT_USER_AGENT")
+MONGODB_URI = os.environ.get("MONGODB_URI")
+MONGODB_NAME = os.environ.get("MONGODB_NAME")
+SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
+
+
+# Slack incoming webhook URL (you can store it in .env as well)
+
+# -----------------------------------
+# 2. Create a PRAW Reddit instance
+# -----------------------------------
+reddit = praw.Reddit(
+    client_id=REDDIT_CLIENT_ID,
+    client_secret=REDDIT_CLIENT_SECRET,
+    user_agent=REDDIT_USER_AGENT
+)
+
+# Ensure we’re read-only if not authenticated with username/password
+reddit.read_only = True
+
+# -----------------------------------
+# 3. Set up MongoDB connection
+# -----------------------------------
+
+mongo_client = pymongo.MongoClient(MONGODB_URI)
+db = mongo_client[MONGODB_NAME]            # Database name
 collection = db["processed_submissions"]   # Collection name
 
 # -----------------------------------
