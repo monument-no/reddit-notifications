@@ -43,7 +43,7 @@ collection = db["processed_submissions"]   # Collection name
 # -----------------------------------
 # 4. Define your target subreddits
 # -----------------------------------
-target_subreddits = ["techno", "festivals", "musicfestivals"]
+target_subreddits = ["techno", "festivals", "musicfestivals", "norway", "norge", "oslo"]
 
 # -----------------------------------
 # 5. Define keywords to look for
