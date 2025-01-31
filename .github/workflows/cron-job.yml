@@ -1,9 +1,9 @@
 name: 'Daily Reddit Bot Run'
 
 on:
-  # Runs every day at 08:00 UTC
+  # Runs every day at 07:00 UTC
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 7 * * *'
 
   # Allows you to manually run the workflow from the GitHub Actions tab if desired
   workflow_dispatch:
