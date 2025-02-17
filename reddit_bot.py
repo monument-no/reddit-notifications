@@ -15,6 +15,8 @@ REDDIT_CLIENT_SECRET = os.environ.get("REDDIT_CLIENT_SECRET")
 REDDIT_USER_AGENT = os.environ.get("REDDIT_USER_AGENT")
 MONGODB_URI = os.environ.get("MONGODB_URI")
 MONGODB_NAME = os.environ.get("MONGODB_NAME")
+
+# #reddit-notifications
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
 
 
@@ -43,7 +45,7 @@ collection = db["processed_submissions"]   # Collection name
 # -----------------------------------
 # 4. Define your target subreddits
 # -----------------------------------
-target_subreddits = ["techno", "festivals", "musicfestivals", "norway", "norge", "oslo"]
+target_subreddits = ["theoverload","techno", "festivals", "musicfestivals", "norway", "norge", "oslo"]
 
 # -----------------------------------
 # 5. Define keywords to look for
